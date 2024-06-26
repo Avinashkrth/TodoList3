@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="toggle-container">
+        <div class="toggle-btn">
+            <div class="toggle-icon sun"><i class="fas fa-sun"></i></div>
+            <div class="toggle-icon moon"><i class="fas fa-moon"></i></div>
+        </div>
+    </div>
+    <div class="background">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+    </div>
+    <h1>TODO LIST</h1>
+    <form>
+        <div>
+            <input type="text" id="inputvalue">
+            <button class="btn">Add Todo</button>
+        </div>
+        <section class="todo-list-ele">
+
+        </section>
+    </form>
+    <script>
+        // JavaScript code to handle dark mode toggle
+        const toggleBtn = document.querySelector('.toggle-btn');
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            toggleBtn.classList.toggle('dark');
+        });
+    </script>
+    <script>
+
+        const maintodo = document.querySelector(".todo-list-ele");
+        const inputvalue = document.getElementById("inputvalue");
+
+
+        const GetTodo = () => {
+            return JSON.parse(localStorage.getItem("todo-list"));
+        };
+
+        const addTodoLocalStorage=(todolist)=>{
+            return localStorage.setItem("todo-list",JSON.stringify(todolist));
+        }
+
+        let todolistvalue = GetTodo() || [];
+        const addDyanamicEle = (currEle) => {
+            const divElem = document.createElement("div");
+            divElem.classList.add("main-todo-list");
+            divElem.innerHTML = ` <li>${currEle}</li>
+                    <button class="deletebtn">Delete</button>`
+
+            maintodo.append(divElem);
+
+        }
+        const addTodolist = (e) => {
+            e.preventDefault();
+
+
+
+            const todolistitem = inputvalue.value.trim();
+            inputvalue.value = "";
+
+            if (todolistitem != "" && !todolistvalue.includes(todolistitem)) {
+                todolistvalue.push(todolistitem);
+
+                todolistvalue = [...new Set(todolistvalue)];
+                console.log(todolistvalue);
+                localStorage.setItem("todo-list", JSON.stringify(todolistvalue))
+
+
+
+                addDyanamicEle(todolistitem);
+
+            }
+        };
+
+        const showtodo = () => {
+            console.log(todolistvalue);
+        }
+        todolistvalue.forEach((currEle) => {
+            addDyanamicEle(currEle);
+        });
+        showtodo();
+
+        removeTodo = (e) => {
+            const targetEle=e.target;
+            let todolistcontent=targetEle.previousElementSibling.innerText;
+            let parent = targetEle.parentElement;
+            console.log(todolistcontent);
+            todolistvalue=todolistvalue.filter((currTodo)=>{
+                return currTodo!=todolistcontent.toLowerCase();
+            });
+
+            addTodoLocalStorage(todolistvalue);
+            parent.remove();
+            console.log(todolistvalue);
+        }
+
+        maintodo.addEventListener("click", (e) => {
+            e.preventDefault();
+           if (e.target.classList.contains("deletebtn")) {
+                removeTodo(e);
+            }
+           
+        })
+
+        document.querySelector(".btn").addEventListener("click", (e) => {
+            addTodolist(e);
+        });
+    </script>
+</body>
+
+</html>

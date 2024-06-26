@@ -1,0 +1,304 @@
+/* style.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.toggle-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 25px;
+    background-color: #007bff;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+.toggle-btn {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: justify-content 0.5s ease;
+}
+
+.toggle-btn.dark {
+    justify-content: flex-end;
+}
+
+.toggle-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.sun {
+    left: 5px;
+    transform: rotateY(0deg);
+}
+
+.moon {
+    right: 5px;
+    transform: rotateY(90deg);
+    opacity: 0;
+}
+
+.toggle-btn.dark .sun {
+    transform: rotateY(90deg);
+    opacity: 0;
+}
+
+.toggle-btn.dark .moon {
+    transform: rotateY(0deg);
+    opacity: 1;
+}
+
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(45deg, #ff6b6b, #f7ff00, #00d4ff);
+    background-size: 300% 300%;
+    animation: gradient 10s ease infinite;
+    z-index: -1;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    transition: background-color 0.5s;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.cube {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+    animation: rotate 20s infinite linear;
+}
+
+.cube:before, .cube:after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: inherit;
+    transform: translateZ(50px);
+}
+
+.cube:before {
+    transform: rotateY(90deg) translateZ(50px);
+}
+
+.cube:nth-child(1) {
+    top: 10%;
+    left: 20%;
+    width: 80px;
+    height: 80px;
+    animation-duration: 15s;
+}
+
+.cube:nth-child(2) {
+    top: 30%;
+    left: 70%;
+    width: 120px;
+    height: 120px;
+    animation-duration: 25s;
+}
+
+.cube:nth-child(3) {
+    top: 60%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    animation-duration: 10s;
+}
+
+.cube:nth-child(4) {
+    top: 80%;
+    left: 30%;
+    width: 90px;
+    height: 90px;
+    animation-duration: 20s;
+}
+
+.cube:nth-child(5) {
+    top: 50%;
+    left: 10%;
+    width: 70px;
+    height: 70px;
+    animation-duration: 18s;
+}
+
+@keyframes rotate {
+    0% { transform: rotateX(0) rotateY(0); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    transition: color 0.5s;
+    color: #1E3A8A; /* Dark blue color for light mode */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+input {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    margin-right: 10px;
+    transition: background-color 0.5s, color 0.5s;
+    width: 300px;
+}
+
+button.btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s, color 0.5s;
+}
+
+button.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.main-todo-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.5s, color 0.5s;
+}
+
+button.deletebtn {
+    padding: 5px 10px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s, color 0.5s;
+}
+
+button.deletebtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode {
+    background-color: #000;
+    color: #39ff14;
+}
+
+.dark-mode .background {
+    background: linear-gradient(45deg, #000, #333, #111);
+    background-size: 300% 300%;
+    animation: darkGradient 10s ease infinite;
+}
+
+@keyframes darkGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.dark-mode .cube {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode input {
+    background-color: #333;
+    color: #39ff14;
+    border-color: #555;
+}
+
+.dark-mode button.btn {
+    background-color: #39ff14;
+    color: #000;
+}
+
+.dark-mode .main-todo-list {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #39ff14;
+}
+
+.dark-mode button.deletebtn {
+    background-color: #39ff14;
+    color: #000;
+}
+
+.dark-mode h1 {
+    color: #39ff14; /* Neon green color for dark mode */
+}
+
+/* Responsive Design */
+
+@media (max-width: 600px) {
+    body, html {
+        overflow: auto;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-top: 30px;
+    }
+
+    form {
+        flex-direction: column;
+        width: 100%;
+        padding: 10px;
+    }
+
+    input {
+        width: calc(100% - 20px);
+        margin: 10px 0;
+    }
+
+    .main-todo-list {
+        width: calc(100% - 20px);
+    }
+}
